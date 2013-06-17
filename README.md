@@ -3,7 +3,7 @@
 This is a starter project for working with [WebRTC](http://webrtc.org).  This "Hello World" demo introduces the following concepts:
 
 - Creating a WebRTC client application using [Browserify](https://github.com/substack/node-browserify)
-- Using the simple `rtc-reflector` for simple signalling using [socket.io](http://socket.io/)
+- Using the simple `rtc-signal-reflector` for simple signalling using [socket.io](http://socket.io/)
 
 ## Getting Started
 

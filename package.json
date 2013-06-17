@@ -1,0 +1,22 @@
+{
+  "name": "rtc-helloworld",
+  "description": "A super simple example for working with WebRTC",
+  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
+  "tags": [
+    "webrtc"
+  ],
+  "engines": {
+    "node": ">= 0.10.x"
+  },
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "rtc": "http://git-ent.research.nicta.com.au/doehlman/rtc/archive/master.tar.gz",
+    "rtc-signaller": "http://git-ent.research.nicta.com.au/doehlman/rtc-signaller/archive/master.tar.gz",
+    "rtc-signaller-ws": "http://git-ent.research.nicta.com.au/doehlman/rtc-signaller-ws/archive/master.tar.gz",
+    "express": "~3.2.6",
+    "browserify-middleware": "~1.12.0"
+  },
+  "devDependencies": {},
+  "contributors": []
+}
