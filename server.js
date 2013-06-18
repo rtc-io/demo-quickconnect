@@ -13,5 +13,5 @@ app.use(express.static(__dirname + '/site'));
 
 // start the server
 server.listen(3000, function(err) {
-	console.log('server running on port 3000');
+    console.log('server running on port 3000');
 });

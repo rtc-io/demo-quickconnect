@@ -1,4 +1,4 @@
-var signaller = require('rtc-signaller'),
+var	signaller = require('rtc-signaller'),
 	channel = signaller('test');
 
 // set the transport as the socket.io signaller
