@@ -1,11 +1,12 @@
 var browserify = require('browserify-middleware'),
-	express = require('express'),
-	signaller = require('rtc-signaller-ws/server'),
-	app = express(),
-	server = require('http').Server(app);
+    express = require('express'),
+    app = express(),
+    server = require('http').Server(app),
+    signaller = require('rtc-signaller-ws/server')(server),
+    ChannelManager = require('rtc-channelmanager');
 
 // attach the signaller to the express application
-signaller(server);
+signaller.channelManager = new ChannelManager();
 
 // use the site handler
 app.use(browserify(__dirname + '/site'));
