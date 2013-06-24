@@ -1,4 +1,5 @@
 var	signaller = require('rtc/signaller'),
+    PeerConnection = require('rtc/peerconnection'),
 	channel = signaller({ channel: 'test', debug: true });
 
 // set the transport as the socket.io signaller
@@ -10,8 +11,12 @@ channel.once('ready', function() {
 });
 
 channel.on('peer:discover', function(peer) {
-    var connection = channel.connect(peer);
+    var connection = new PeerConnection();
 
-    // add a stream to the connection
-    connection.addStream(media.stream);
+    connection.setChannel(channel);
+    connection.initiate(peer.id, function(err) {
+        if (! err) {
+            console.log('connection initiated, tunnel id: ' + connection.tunnelId);
+        }
+    });
 });
