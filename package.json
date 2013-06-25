@@ -19,5 +19,10 @@
     "bunyan": "~0.21.3"
   },
   "devDependencies": {},
+
+  "scripts": {
+    "new-chrome": "google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
+    "start": "DEBUG=rtc* node server.js"
+  },
   "contributors": []
 }
