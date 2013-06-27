@@ -4,8 +4,10 @@ var	signaller = require('rtc/signaller'),
     media = require('rtc/media'),
     localVideo = media();
 
+console.log(location);
+
 // set the transport as the socket.io signaller
-channel.setTransport(require('rtc-signaller-ws')({ host: 'http://localhost:3000/' }));
+channel.setTransport(require('rtc-signaller-ws')({ host: location.origin || 'http://localhost:3000/' }));
 
 // wait for ready event
 channel.once('ready', function() {
