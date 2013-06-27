@@ -13,7 +13,10 @@ channel.once('ready', function() {
 });
 
 channel.on('peer:discover', function(peer) {
-    var connection = channel.connect(peer.id); // new PeerConnection();
+    var connection = channel.connect(peer.id),
+        videoElements = [];
+
+    // var connection = channel.dial(peer.id);
 
     // if we already have a stream, then add the stream
     if (localVideo.stream) {
@@ -29,7 +32,15 @@ channel.on('peer:discover', function(peer) {
     }
 
     connection.addEventListener('addstream', function(evt) {
-        media(evt.stream).render('.video.remote');
+        videoElements = videoElements.concat(media(evt.stream).render('.video.remote'));
+    });
+
+    // when the connection is closed, remove the streams
+    connection.on('close', function() {
+        // remove the video elements
+        videoElements.splice(0).forEach(function(el) {
+            el.parentNode.removeChild(el);
+        });
     });
 });
 
