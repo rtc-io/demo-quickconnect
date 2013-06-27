@@ -4,6 +4,7 @@ var browserify = require('browserify-middleware'),
         name: 'rtc-helloworld'
     }),
     express = require('express'),
+    stylus = require('stylus'),
     app = express(),
     server = require('http').Server(app),
     signaller = require('rtc-signaller-ws/server')(server),
@@ -12,8 +13,15 @@ var browserify = require('browserify-middleware'),
 // attach the signaller to the express application
 signaller.channelManager = new ChannelManager();
 
-// use the site handler
+// browserify valid things
 app.use(browserify(__dirname + '/site'));
+
+// convert stylus stylesheets
+app.use(stylus.middleware({
+    src: __dirname + '/site'
+}));
+
+// serve the rest statically
 app.use(express.static(__dirname + '/site'));
 
 // start the server

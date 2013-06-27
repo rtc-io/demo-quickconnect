@@ -1,22 +1,19 @@
 <html>
 <head>
 <title>rtc-helloworld</title>
-<style>
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
-
-.video {
-    width: 320px;
-    height: 240px;
-}
-</style>
+<link rel="stylesheet" href="layout.css" />
 </head>
 <body>
-<div class="video local"></div>
-<div class="video remote"></div>
+<div class="container">
+<div class="zone remote"></div>
+<div class="chat">
+	<ul id="messages">
+		<li>Chat and status messages will go here...</li>
+	</ul>
+	<div class="zone local"></div>
+	<input type="text" id="chat-input">
+</div>
+</div>
 <script src="index.js"></script>
 </body>
 </html>

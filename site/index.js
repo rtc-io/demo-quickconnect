@@ -4,8 +4,6 @@ var	signaller = require('rtc/signaller'),
     media = require('rtc/media'),
     localVideo = media();
 
-console.log(location);
-
 // set the transport as the socket.io signaller
 channel.setTransport(require('rtc-signaller-ws')({ host: location.origin || 'http://localhost:3000/' }));
 
@@ -34,7 +32,7 @@ channel.on('peer:discover', function(peer) {
     }
 
     connection.addEventListener('addstream', function(evt) {
-        videoElements = videoElements.concat(media(evt.stream).render('.video.remote'));
+        videoElements = videoElements.concat(media(evt.stream).render('.zone.remote'));
     });
 
     // when the connection is closed, remove the streams
@@ -46,6 +44,6 @@ channel.on('peer:discover', function(peer) {
     });
 });
 
-localVideo.render('.video.local').on('start', function(stream) {
+localVideo.render('.zone.local').on('start', function(stream) {
     console.log('video started, stream: ', stream);
 });
