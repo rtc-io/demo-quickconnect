@@ -31,7 +31,7 @@ channel.on('peer:discover', function(peer) {
         });
     }
 
-    connection.addEventListener('addstream', function(evt) {
+    connection.on('stream:add', function(evt) {
         videoElements = videoElements.concat(media(evt.stream).render('.zone.remote'));
     });
 

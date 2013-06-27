@@ -5,6 +5,7 @@ var browserify = require('browserify-middleware'),
     }),
     express = require('express'),
     stylus = require('stylus'),
+    nib = require('nib'),
     app = express(),
     server = require('http').Server(app),
     signaller = require('rtc-signaller-ws/server')(server),
@@ -18,7 +19,13 @@ app.use(browserify(__dirname + '/site'));
 
 // convert stylus stylesheets
 app.use(stylus.middleware({
-    src: __dirname + '/site'
+    src: __dirname + '/site',
+    compile: function(str, sourcePath) {
+        return stylus(str)
+            .set('filename', sourcePath)
+            .set('compress', false)
+            .use(nib());
+    }
 }));
 
 // serve the rest statically
