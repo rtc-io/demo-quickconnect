@@ -31,8 +31,8 @@ channel.on('peer:discover', function(peer) {
         });
     }
 
-    connection.on('stream:add', function(evt) {
-        videoElements = videoElements.concat(media(evt.stream).render('.zone.remote'));
+    connection.on('stream:add', function(stream) {
+        videoElements = videoElements.concat(media(stream).render('.zone.remote'));
     });
 
     // when the connection is closed, remove the streams
