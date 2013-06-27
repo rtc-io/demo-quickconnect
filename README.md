@@ -23,7 +23,7 @@ npm install
 Once the dependencies have been installed, you should then be able to run the demonstration server:
 
 ```console
-node server.js
+npm start
 ```
 
 If everything has worked correctly, you should now be able to open your browser to the following url:
