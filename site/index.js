@@ -1,6 +1,6 @@
 var	signaller = require('rtc/signaller'),
     PeerConnection = require('rtc/peerconnection'),
-	channel = signaller({ channel: 'test', debug: false }),
+	channel = signaller({ channel: 'test', debug: true }),
     media = require('rtc/media'),
     localVideo = media();
 
