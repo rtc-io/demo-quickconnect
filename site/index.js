@@ -1,6 +1,6 @@
 var	signaller = require('rtc/signaller'),
     PeerConnection = require('rtc/peerconnection'),
-	channel = signaller({ channel: 'test', debug: true }),
+	channel = signaller({ channel: 'test', debug: false }),
     media = require('rtc/media'),
     localVideo = media();
 
@@ -16,6 +16,8 @@ channel.on('peer:discover', function(peer) {
     var connection = channel.connect(peer.id),
         videoElements = [];
 
+    console.log('discovered peer: ' + peer.id);
+
     // var connection = channel.dial(peer.id);
 
     // if we already have a stream, then add the stream
@@ -26,7 +28,7 @@ channel.on('peer:discover', function(peer) {
     // otherwise, wait for the start and bind
     else {
         localVideo.once('start', function(stream) {
-            console.log('local video has started streaming');
+            console.log('local video has started streaming', stream);
             connection.addStream(stream);
         });
     }
@@ -41,9 +43,10 @@ channel.on('peer:discover', function(peer) {
         videoElements.splice(0).forEach(function(el) {
             el.parentNode.removeChild(el);
         });
+
+        // release the connection reference
+        connection = null;
     });
 });
 
-localVideo.render('.zone.local').on('start', function(stream) {
-    console.log('video started, stream: ', stream);
-});
+localVideo.render('.zone.local');
