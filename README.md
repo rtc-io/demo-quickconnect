@@ -13,10 +13,10 @@ First, clone this repository:
 git clone git://github.it.nicta.com.au/doehlman/rtc-helloworld.git
 ```
 
-Then, so you don't have to deal with me breaking things in master, checkout the latest stable tag (which is currently `v0.0.1`):
+Then, so you don't have to deal with me breaking things in master, checkout the latest stable tag (which is currently `v0.0.2`):
 
 ```console
-git checkout v0.0.1
+git checkout v0.0.2
 ```
 
 Next, install node dependencies:
