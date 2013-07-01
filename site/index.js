@@ -1,24 +1,21 @@
-var	signaller = require('rtc/signaller'),
+var	signaller = require('rtc/signaller').create({
+        channel: 'test',
+        host: location.origin || 'http://localhost:3000/'
+    }),
     PeerConnection = require('rtc/peerconnection'),
-	channel = signaller({ channel: 'test', debug: false }),
     media = require('rtc/media'),
     localVideo = media();
 
-// set the transport as the socket.io signaller
-channel.setTransport(require('rtc-signaller-ws')({ host: location.origin || 'http://localhost:3000/' }));
-
 // wait for ready event
-channel.once('ready', function() {
-    console.log('connected to ' + channel.name + ' with ' + channel.peers.length + ' other peers');
+signaller.once('ready', function() {
+    console.log('ready');
 });
 
-channel.on('peer:discover', function(peer) {
-    var connection = channel.connect(peer.id),
+signaller.on('peer:discover', function(peer) {
+    var connection = signaller.dial(peer.id),
         videoElements = [];
 
     console.log('discovered peer: ' + peer.id);
-
-    // var connection = channel.dial(peer.id);
 
     // if we already have a stream, then add the stream
     if (localVideo.stream) {
