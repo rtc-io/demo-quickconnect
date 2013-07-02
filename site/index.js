@@ -2,18 +2,27 @@ var	signaller = require('rtc/signaller').create({
         channel: 'test',
         host: location.origin || 'http://localhost:3000/'
     }),
-    PeerConnection = require('rtc/peerconnection'),
     media = require('rtc/media'),
-    localVideo = media();
-
-// wait for ready event
-signaller.once('ready', function() {
-    console.log('ready');
-});
+    localVideo = media().render('.zone.local');
 
 signaller.on('peer:discover', function(peer) {
     var connection = signaller.dial(peer.id),
         videoElements = [];
+
+    /* some potential nodey apis
+
+    // send the local video to the connection
+    localVideo.pipe(connection.createInput());
+
+    // send connection streams to the media
+    connection.createOutput().pipe(media.inject('.zone.remote'));
+    */
+
+    /* some potential more traditional apis
+
+    connection.attach(localVideo);
+    connection.renderTo('.zone.remote');
+    */
 
     console.log('discovered peer: ' + peer.id);
 
@@ -45,5 +54,3 @@ signaller.on('peer:discover', function(peer) {
         connection = null;
     });
 });
-
-localVideo.render('.zone.local');
