@@ -18,7 +18,9 @@
     "browserify-middleware": "~1.12.0",
     "bunyan": "~0.21.3",
     "stylus": "~0.32.1",
-    "nib": "~0.9.2"
+    "nib": "~0.9.2",
+    "keymaster": "~1.0.2",
+    "crel": "~1.0.0"
   },
   "devDependencies": {},
   "scripts": {

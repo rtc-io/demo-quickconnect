@@ -3,7 +3,10 @@ var	signaller = require('rtc/signaller').create({
         host: location.origin || 'http://localhost:3000/'
     }),
     media = require('rtc/media'),
-    localVideo = media().render('.zone.local');
+    localVideo = media().render('.zone.local'),
+    crel = require('crel'),
+    commandInput,
+    messageList;
 
 signaller.on('peer:discover', function(peer) {
     var connection = signaller.dial(peer.id),
@@ -54,3 +57,22 @@ signaller.on('peer:discover', function(peer) {
         connection = null;
     });
 });
+
+signaller.on('message', function(data) {
+    messageList.appendChild(crel('li', data));
+});
+
+window.addEventListener('load', function() {
+    messageList = document.getElementById('messageList');
+    commandInput = document.getElementById('commandInput');
+    commandInput.addEventListener('keydown', handleCommand);
+});
+
+/* internals */
+
+function handleCommand(evt) {
+    if (evt && evt.keyCode === 13) {
+        signaller.send(commandInput.value);
+        commandInput.select();
+    }
+}
