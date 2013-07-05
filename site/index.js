@@ -8,8 +8,8 @@ var	signaller = require('rtc/signaller').create({
     commandInput,
     messageList;
 
-signaller.on('peer:discover', function(peer) {
-    var connection = signaller.dial(peer.id),
+signaller.on('peer:discover', function(id) {
+    var connection = signaller.dial(id),
         videoElements = [];
 
     /* some potential nodey apis
@@ -27,7 +27,7 @@ signaller.on('peer:discover', function(peer) {
     connection.renderTo('.zone.remote');
     */
 
-    console.log('discovered peer: ' + peer.id);
+    console.log('discovered peer: ' + id);
 
     // if we already have a stream, then add the stream
     if (localVideo.stream) {
@@ -73,6 +73,7 @@ window.addEventListener('load', function() {
 function handleCommand(evt) {
     if (evt && evt.keyCode === 13) {
         signaller.send(commandInput.value);
+        messageList.appendChild(crel('li', { class: 'local' }, commandInput.value));
         commandInput.select();
     }
 }
