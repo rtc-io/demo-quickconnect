@@ -9,20 +9,20 @@ This is a starter project for working with [WebRTC](http://webrtc.org).  This "H
 
 First, clone this repository:
 
-```console
+```
 git clone git://github.it.nicta.com.au/doehlman/rtc-helloworld.git
 ```
 
 Next, install node dependencies:
 
-```console
+```
 cd rtc-helloworld
 npm install
 ```
 
 Once the dependencies have been installed, you should then be able to run the demonstration server:
 
-```console
+```
 npm start
 ```
 
