@@ -11,9 +11,9 @@
   "private": true,
   "version": "0.0.3",
   "dependencies": {
-    "rtc": "git://github.it.nicta.com.au/doehlman/rtc.git",
-    "rtc-channelmanager": "git://github.it.nicta.com.au/doehlman/rtc-channelmanager.git",
-    "rtc-signaller-ws": "git://github.it.nicta.com.au/doehlman/rtc-signaller-ws.git",
+    "rtc": "git://github.it.nicta.com.au/Telepresence/rtc.git",
+    "rtc-channelmanager": "git://github.it.nicta.com.au/Telepresence/rtc-channelmanager.git",
+    "rtc-signaller-ws": "git://github.it.nicta.com.au/Telepresence/rtc-signaller-ws.git",
     "express": "~3.2.6",
     "browserify-middleware": "~1.12.0",
     "bunyan": "~0.21.3",
