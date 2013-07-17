@@ -9,7 +9,7 @@
     "node": ">= 0.10.x"
   },
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "rtc": "git://github.it.nicta.com.au/Telepresence/rtc.git",
     "rtc-channelmanager": "git://github.it.nicta.com.au/Telepresence/rtc-channelmanager.git",
