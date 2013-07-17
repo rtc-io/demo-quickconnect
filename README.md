@@ -10,7 +10,7 @@ This is a starter project for working with [WebRTC](http://webrtc.org).  This "H
 First, clone this repository:
 
 ```
-git clone git://github.it.nicta.com.au/doehlman/rtc-helloworld.git
+git clone git://github.it.nicta.com.au/Telepresence/rtc-helloworld.git
 ```
 
 Next, install node dependencies:
