@@ -19,7 +19,8 @@
     "keymaster": "~1.0.2",
     "crel": "~1.0.0",
     "rtc": "~0.1.0",
-    "rtc-signaller-ws": "~0.1.0"
+    "rtc-signaller-ws": "~0.1.0",
+    "rtc-channelmanager": "~0.1.4"
   },
   "devDependencies": {},
   "scripts": {

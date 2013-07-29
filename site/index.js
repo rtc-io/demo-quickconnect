@@ -1,12 +1,15 @@
 var	signaller = require('rtc/signaller').create({
         channel: 'test',
-        host: location.origin || 'http://localhost:3000/'
+        host: location.origin || 'http://rtc.io'
     }),
     media = require('rtc/media'),
-    localVideo = media().render('.zone.local'),
+    localMedia = media(),
     crel = require('crel'),
     commandInput,
     messageList;
+
+// render the local stream
+localMedia.render('.zone.local');
 
 signaller.on('peer:discover', function(id) {
     var connection = signaller.dial(id),
@@ -15,7 +18,7 @@ signaller.on('peer:discover', function(id) {
     /* some potential nodey apis
 
     // send the local video to the connection
-    localVideo.pipe(connection.createInput());
+    localMedia.pipe(connection.createInput());
 
     // send connection streams to the media
     connection.createOutput().pipe(media.inject('.zone.remote'));
@@ -23,20 +26,20 @@ signaller.on('peer:discover', function(id) {
 
     /* some potential more traditional apis
 
-    connection.attach(localVideo);
+    connection.attach(localMedia);
     connection.renderTo('.zone.remote');
     */
 
     console.log('discovered peer: ' + id);
 
     // if we already have a stream, then add the stream
-    if (localVideo.stream) {
+    if (localMedia.stream) {
         console.log('local video stream active, adding to the connection');
-        connection.addStream(localVideo.stream);
+        connection.addStream(localMedia.stream);
     }
     // otherwise, wait for the start and bind
     else {
-        localVideo.once('start', function(stream) {
+        localMedia.once('start', function(stream) {
             console.log('local video has started streaming', stream);
             connection.addStream(stream);
         });
@@ -44,6 +47,7 @@ signaller.on('peer:discover', function(id) {
 
     connection.on('stream:add', function(stream) {
         videoElements = videoElements.concat(media(stream).render('.zone.remote'));
+        console.log(videoElements);
     });
 
     // when the connection is closed, remove the streams
