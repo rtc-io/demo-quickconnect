@@ -20,7 +20,8 @@
     "crel": "~1.0.0",
     "rtc": "~0.1.0",
     "rtc-signaller-ws": "~0.1.0",
-    "rtc-channelmanager": "~0.1.4"
+    "rtc-channelmanager": "~0.1.4",
+    "uuid": "~1.4.1"
   },
   "devDependencies": {},
   "scripts": {
