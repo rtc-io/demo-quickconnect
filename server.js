@@ -1,27 +1,17 @@
 /* jshint node: true */
-
 'use strict';
 
 /**
 # rtc-helloworld
 **/
 
-var browserify = require('browserify-middleware');
-var bunyan = require('bunyan');
-var log = bunyan.createLogger({ name: 'rtc-helloworld' });
 var express = require('express');
 var stylus = require('stylus');
 var nib = require('nib');
 var app = express();
 var server = require('http').Server(app);
-var signaller = require('rtc-signaller-ws/server')(server);
-var ChannelManager = require('rtc-channelmanager');
-
-// attach the signaller to the express application
-signaller.channelManager = new ChannelManager();
-
-// browserify valid things
-app.use(browserify(__dirname + '/site'));
+var io = require('socket.io').listen(server);
+var signaller = require('rtc-signaller-socket.io')(io);
 
 // convert stylus stylesheets
 app.use(stylus.middleware({
@@ -34,8 +24,17 @@ app.use(stylus.middleware({
   }
 }));
 
+// simple socket reflector implementation
+io.sockets.on('connection', signaller);
+
 // serve the rest statically
 app.use(express.static(__dirname + '/site'));
+
+// serve the signaller files front-end files
+app.use(
+  '/signaller',
+  express.static(__dirname + '/node_modules/rtc-signaller/dist')
+);
 
 // start the server
 server.listen(3000, function(err) {
