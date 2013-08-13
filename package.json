@@ -16,10 +16,9 @@
     "nib": "~0.9.2",
     "keymaster": "~1.0.2",
     "crel": "~1.0.0",
-    "rtc": "~0.1.0",
+    "rtc": "~0.2.0",
     "uuid": "~1.4.1",
     "socket.io": "~0.9.16",
-    "rtc-signaller": "~0.2.0",
     "rtc-signaller-socket.io": "~0.1.0"
   },
   "devDependencies": {},

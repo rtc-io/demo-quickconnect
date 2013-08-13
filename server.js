@@ -32,8 +32,8 @@ app.use(express.static(__dirname + '/site'));
 
 // serve the signaller files front-end files
 app.use(
-  '/signaller',
-  express.static(__dirname + '/node_modules/rtc-signaller/dist')
+  '/rtc',
+  express.static(__dirname + '/node_modules/rtc/dist')
 );
 
 // start the server

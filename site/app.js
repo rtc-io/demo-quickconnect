@@ -1,6 +1,6 @@
 (function() {
   var socket = io.connect('http://localhost:3000');
-  var scope = signaller(socket, { dataEvent: 'message' });
+  var scope = rtc.signaller(socket, { dataEvent: 'message' });
 
   scope.on('sdp', function(data) {
     console.log(data);
