@@ -14,16 +14,13 @@
     "express": "~3.2.6",
     "stylus": "~0.32.1",
     "nib": "~0.9.2",
-    "keymaster": "~1.0.2",
-    "crel": "~1.0.0",
-    "rtc": "~0.2.0",
-    "uuid": "~1.4.1",
+    "rtc": "~0.3.0",
     "socket.io": "~0.9.16",
     "rtc-signaller-socket.io": "~0.1.0"
   },
   "devDependencies": {},
   "scripts": {
-    "new-chrome": "google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
+    "new-chrome": "chromium-browser --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
     "start": "DEBUG=rtc* node server.js"
   },
   "contributors": [],
