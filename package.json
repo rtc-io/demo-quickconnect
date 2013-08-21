@@ -21,9 +21,9 @@
   "devDependencies": {},
   "scripts": {
     "new-chrome": "chromium-browser --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
-    "start": "DEBUG=rtc* node server.js"
+    "start": "DEBUG=rtc* node server.js",
+    "gendocs": "gendocs > README.md"
   },
-  "contributors": [],
   "main": "server.js",
   "repository": {
     "type": "git",
