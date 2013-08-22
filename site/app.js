@@ -7,7 +7,6 @@
 
   var peers = {};
   var localMedia;
-  var videoElements = [];
   var debug = rtc.logger('helloworld');
 
   rtc.logger.enable('*');
@@ -18,6 +17,7 @@
 
   function createPeer(data) {
     var connection = rtc.createConnection();
+    var videoElements = [];
     var coupling;
 
     debug('created peer for remote id: ' + data.id);
@@ -42,15 +42,21 @@
     }
 
     connection.addEventListener('addstream', function(evt) {
-      debug('remote stream added');
-      videoElements = videoElements.concat(rtc.media(evt.stream).render('.zone.remote'));
+      debug('remote stream added', evt.stream);
+
+      rtc.media(evt.stream).render('.zone.remote').forEach(function(el) {
+        videoElements.push(el);
+      });
     });
 
     connection.addEventListener('removestream', function(evt) {
       debug('remote stream removed');
     });
 
-    return connection;
+    return {
+      connection: connection,
+      videoElements: videoElements
+    };
   }
   
   /* media setup */
@@ -58,7 +64,9 @@
   localMedia = rtc.media();
 
   // render the local stream
-  localMedia.render('.zone.local');
+  localMedia.on('capture', function() {
+    localMedia.render('.zone.local');
+  });
 
   /* peer connection setup */
 
@@ -78,8 +86,16 @@
 
   scope.on('leave', function(peerId) {
     if (peers[peerId]) {
-      peers[peerId].close();
       debug('I lost a good friend today');
+
+      // remove the video elements
+      peers[peerId].videoElements.splice(0).forEach(function(el) {
+        if (el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
+      });
+
+      peers[peerId].connection.close();
 
       // reset the peer reference
       peers[peerId] = null;
