@@ -35,7 +35,7 @@
     }
     // otherwise, wait for the start and bind
     else {
-      localMedia.once('start', function(stream) {
+      localMedia.once('capture', function(stream) {
         debug('local video has started streaming', stream);
         connection.addStream(stream);
       });
@@ -50,7 +50,7 @@
     });
 
     connection.addEventListener('removestream', function(evt) {
-      debug('remote stream removed');
+      debug('!!!! remote stream removed');
     });
 
     return {
