@@ -9,7 +9,7 @@
     "node": ">= 0.10.x"
   },
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
     "express": "~3.2.6",
     "stylus": "~0.32.1",
