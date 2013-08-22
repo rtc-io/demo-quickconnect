@@ -1,3 +1,8 @@
+/**
+  ## Demo: Reactive
+
+*/
+
 (function() {
   var socket = io.connect('http://localhost:3000');
   var scope = rtc.signaller(socket, {
@@ -8,12 +13,26 @@
   var peers = {};
   var localMedia;
   var debug = rtc.logger('helloworld');
+  var currentRoom;
 
   rtc.logger.enable('*');
 
   scope.on('open', function() {
     debug('scope open');
   });
+
+  // if (currentRoom = location.hash.slice(1)) {
+  //   scope.send('/enter', currentRoom);
+  // }
+
+  // window.addEventListener('hashchange', function() {
+  //   var newRoom = location.hash.slice(1);
+
+  //   if (newRoom !== currentRoom) {
+  //     scope.send('/exit', currentRoom);
+  //     scope.send('/enter', currentRoom = newRoom);
+  //   }
+  // });
 
   function createPeer(data) {
     var connection = rtc.createConnection();
@@ -79,8 +98,8 @@
     if (! peers[data.id]) {
       peers[data.id] = createPeer(data);
 
-      debug('announcing self');
-      scope.announce();
+      // tell our new friend about ourself
+      scope.to(data.id).announce();
     }
   });
 
