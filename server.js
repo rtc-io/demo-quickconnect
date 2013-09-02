@@ -47,6 +47,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 var signaller = require('rtc-signaller-socket.io')(io);
+var browserify = require('browserify-middleware');
 
 // convert stylus stylesheets
 app.use(stylus.middleware({
@@ -63,13 +64,8 @@ app.use(stylus.middleware({
 io.sockets.on('connection', signaller);
 
 // serve the rest statically
+app.use(browserify('./site'));
 app.use(express.static(__dirname + '/site'));
-
-// serve the signaller files front-end files
-app.use(
-  '/rtc',
-  express.static(__dirname + '/node_modules/rtc/dist')
-);
 
 // start the server
 server.listen(3000, function(err) {
