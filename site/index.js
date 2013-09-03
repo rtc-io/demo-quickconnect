@@ -1,5 +1,5 @@
 var rtc = require('rtc');
-var socket = io.connect('http://rtcjs.io:50001');
+var socket = io.connect('http://signaller.rtc.io:50001');
 var scope = rtc.signaller(socket, {
   dataEvent: 'message',
   openEvent: 'connect'
@@ -50,6 +50,9 @@ function createPeer(data) {
 
   coupling.once('active', function() {
     debug('connection active');
+    if (connection.localDescription.type == "offer") {
+      createDataChannel();
+    }
   });
 
   // if we already have a stream, then add the stream
@@ -69,7 +72,6 @@ function createPeer(data) {
     debug('remote stream added');
 
     rtc.media(evt.stream).render('.zone.remote').forEach(function(el) {
-      el.addEventListener('canplay', createDataChannel);
       videoElements.push(el);
     });
   });
@@ -122,12 +124,6 @@ localMedia = rtc.media();
 // render the local stream
 localMedia.on('capture', function() {
   localMedia.render('.zone.local');
-
-  // say hello
-  if (peers.length === 0) {
-    console.log("no peers - sending announce");
-    scope.announce();
-  }
 });
 
 /* peer connection setup */
@@ -171,6 +167,9 @@ scope.on('leave', function(peerId) {
 
   }
 });
+
+// say hello
+scope.announce();
 
 window.addEventListener('load', function() {
     messageList = document.getElementById('messageList');
