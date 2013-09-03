@@ -1,14 +1,13 @@
 var rtc = require('rtc');
-var socket = io.connect('http://signaller.rtc.io:50000');
+var socket = io.connect('http://rtcjs.io:50001');
 var scope = rtc.signaller(socket, {
   dataEvent: 'message',
   openEvent: 'connect'
 });
 
-var peers = {};
+var peers = [];
 var localMedia;
 var debug = rtc.logger('helloworld');
-var currentRoom;
 
 rtc.logger.enable('*');
 
@@ -16,6 +15,10 @@ scope.on('open', function() {
   debug('scope open');
 });
 
+var dataChannel = null;
+var messageList, commandInput;
+
+// var currentRoom;
 // if (currentRoom = location.hash.slice(1)) {
 //   scope.send('/enter', currentRoom);
 // }
@@ -30,14 +33,21 @@ scope.on('open', function() {
 // });
 
 function createPeer(data) {
-  var connection = rtc.createConnection();
+  /* add a data channel on the peer connection */
+  var dcConstraints = {
+    optional: [
+      { RtpDataChannels: true }
+    ]
+  };
+  var connection = rtc.createConnection({}, dcConstraints);
   var videoElements = [];
-  var coupling;
-
   debug('created peer for remote id: ' + data.id);
 
   // couple to the remote peer using the id over the signalling scope
+  var coupling;
+
   coupling = rtc.couple(connection, { id: data.id }, scope);
+
   coupling.once('active', function() {
     debug('connection active');
   });
@@ -50,15 +60,16 @@ function createPeer(data) {
   // otherwise, wait for the start and bind
   else {
     localMedia.once('capture', function(stream) {
-      debug('local video has started streaming', stream);
+      debug('local video has started streaming');
       connection.addStream(stream);
     });
   }
 
   connection.addEventListener('addstream', function(evt) {
-    debug('remote stream added', evt.stream);
+    debug('remote stream added');
 
     rtc.media(evt.stream).render('.zone.remote').forEach(function(el) {
+      el.addEventListener('canplay', createDataChannel);
       videoElements.push(el);
     });
   });
@@ -67,11 +78,42 @@ function createPeer(data) {
     debug('!!!! remote stream removed');
   });
 
+  function createDataChannel(evt) {
+    if (!dataChannel) {
+      console.log("creating data channel");
+      dataChannel = connection.createDataChannel("chat");
+
+      addDataChannelEvents();
+    }
+  }
+
+  function addDataChannelEvents() {
+      dataChannel.addEventListener('message', function (evt) {
+        console.log("Received message");
+        appendMsg(evt.data, 'remote');
+      });
+
+      dataChannel.addEventListener('open', function (evt) {
+        console.log("Data channel open");
+      });
+  }
+
+
+  connection.addEventListener('datachannel', function(evt) {
+    if (!dataChannel) {
+      console.log("creating data channel received");
+      dataChannel = evt.channel;
+
+      addDataChannelEvents();
+    }
+  });
+
   return {
     connection: connection,
     videoElements: videoElements
   };
 }
+
 
 /* media setup */
 
@@ -80,6 +122,12 @@ localMedia = rtc.media();
 // render the local stream
 localMedia.on('capture', function() {
   localMedia.render('.zone.local');
+
+  // say hello
+  if (peers.length === 0) {
+    console.log("no peers - sending announce");
+    scope.announce();
+  }
 });
 
 /* peer connection setup */
@@ -94,6 +142,7 @@ scope.on('announce', function(data) {
     peers[data.id] = createPeer(data);
 
     // tell our new friend about ourself
+    console.log("peer discovered - sending announce");
     scope.to(data.id).announce();
   }
 });
@@ -111,10 +160,37 @@ scope.on('leave', function(peerId) {
 
     peers[peerId].connection.close();
 
+    // reset the data connection
+    if (dataChannel) {
+      dataChannel.close();
+      dataChannel = null;
+    }
+
     // reset the peer reference
     peers[peerId] = null;
+
   }
 });
 
-// say hello
-scope.announce();
+window.addEventListener('load', function() {
+    messageList = document.getElementById('messageList');
+    commandInput = document.getElementById('commandInput');
+    commandInput.addEventListener('keydown', handleCommand);
+});
+
+/* internals */
+
+function appendMsg(msg, cls) {
+  var msgEl = document.createElement('li');
+  msgEl.className = cls;
+  msgEl.innerHTML = msg;
+  messageList.appendChild(msgEl);
+}
+
+function handleCommand(evt) {
+    if (evt && evt.keyCode === 13) {
+        dataChannel.send(commandInput.value);
+        appendMsg(commandInput.value, 'local');
+        commandInput.select();
+    }
+}
