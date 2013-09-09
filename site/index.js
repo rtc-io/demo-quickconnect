@@ -1,5 +1,5 @@
 var rtc = require('rtc');
-var socket = io.connect('https//rtcjs.io:50001');
+var socket = io.connect('https://localhost:3000');
 var scope = rtc.signaller(socket, {
   dataEvent: 'message',
   openEvent: 'connect'
@@ -17,20 +17,6 @@ scope.on('open', function() {
 
 var dataChannel = null;
 var messageList, commandInput;
-
-// var currentRoom;
-// if (currentRoom = location.hash.slice(1)) {
-//   scope.send('/enter', currentRoom);
-// }
-
-// window.addEventListener('hashchange', function() {
-//   var newRoom = location.hash.slice(1);
-
-//   if (newRoom !== currentRoom) {
-//     scope.send('/exit', currentRoom);
-//     scope.send('/enter', currentRoom = newRoom);
-//   }
-// });
 
 function createPeer(data) {
   /* add a data channel on the peer connection */
