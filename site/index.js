@@ -1,5 +1,5 @@
 var rtc = require('rtc');
-var socket = io.connect('https://localhost:3000');
+var socket = io.connect('http://localhost:3000');
 var scope = rtc.signaller(socket, {
   dataEvent: 'message',
   openEvent: 'connect'
