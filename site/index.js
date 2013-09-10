@@ -1,14 +1,22 @@
+/* jshint node: true */
+'use strict';
+
+// include all the rtc things
 var rtc = require('rtc');
+
+// use a plain old socket io connection
+// NOTE: socket.io does not play nice with browserify so this needs to
+// be brought in with an oldschool <script> tag
 var socket = io.connect('http://localhost:3000');
-var scope = rtc.signaller(socket, {
+
+// initialize our signalling instance
+var signaller = rtc.signaller(socket, {
   dataEvent: 'message',
   openEvent: 'connect'
 });
 
-var peers = [];
-var localMedia;
+// get a logger and enable noisy logging
 var debug = rtc.logger('helloworld');
-
 rtc.logger.enable('*');
 
 scope.on('open', function() {
