@@ -1,181 +1,59 @@
-var rtc = require('rtc');
-var socket = io.connect('http://localhost:3000');
-var scope = rtc.signaller(socket, {
-  dataEvent: 'message',
-  openEvent: 'connect'
-});
+var quickconnect = require('rtc-quickconnect');
+var media = require('rtc-media');
+var crel = require('crel');
+var qsa = require('dd/qsa');
+var channel;
 
-var peers = [];
-var localMedia;
-var debug = rtc.logger('helloworld');
+// get the message list DOM element
+var messages = qsa('#messageList')[0];
+var chat = qsa('#commandInput')[0];
 
-rtc.logger.enable('*');
+// capture local media
+var localMedia = media();
 
-scope.on('open', function() {
-  debug('scope open');
-});
+require('cog/logger').enable('*');
 
-var dataChannel = null;
-var messageList, commandInput;
-
-function createPeer(data) {
-  /* add a data channel on the peer connection */
-  var dcConstraints = {
-    optional: [
-      { RtpDataChannels: true }
-    ]
-  };
-  var connection = rtc.createConnection({}, dcConstraints);
-  var videoElements = [];
-  debug('created peer for remote id: ' + data.id);
-
-  // couple to the remote peer using the id over the signalling scope
-  var coupling;
-
-  coupling = rtc.couple(connection, { id: data.id }, scope);
-
-  coupling.once('active', function() {
-    debug('connection active');
-    if (connection.localDescription.type == "offer") {
-      createDataChannel();
+// initialise a connection
+quickconnect({ ns: 'helloworld', data: false, dtls: true })
+  .on('peer', function(connection, id) {
+    // add the local media to the peer
+    if (localMedia.stream) {
+      connection.addStream(localMedia.stream);
     }
-  });
-
-  // if we already have a stream, then add the stream
-  if (localMedia.stream) {
-    debug('local video stream active, adding to the connection');
-    connection.addStream(localMedia.stream);
-  }
-  // otherwise, wait for the start and bind
-  else {
-    localMedia.once('capture', function(stream) {
-      debug('local video has started streaming');
-      connection.addStream(stream);
-    });
-  }
-
-  connection.addEventListener('addstream', function(evt) {
-    debug('remote stream added');
-
-    rtc.media(evt.stream).render('.zone.remote').forEach(function(el) {
-      videoElements.push(el);
-    });
-  });
-
-  connection.addEventListener('removestream', function(evt) {
-    debug('!!!! remote stream removed');
-  });
-
-  function createDataChannel(evt) {
-    if (!dataChannel) {
-      console.log("creating data channel");
-      dataChannel = connection.createDataChannel("chat");
-
-      addDataChannelEvents();
-    }
-  }
-
-  function addDataChannelEvents() {
-      dataChannel.addEventListener('message', function (evt) {
-        console.log("Received message");
-        appendMsg(evt.data, 'remote');
+    else {
+      localMedia.once('capture', function(stream) {
+        connection.addStream(stream);
       });
-
-      dataChannel.addEventListener('open', function (evt) {
-        console.log("Data channel open");
-      });
-  }
-
-
-  connection.addEventListener('datachannel', function(evt) {
-    if (!dataChannel) {
-      console.log("creating data channel received");
-      dataChannel = evt.channel;
-
-      addDataChannelEvents();
     }
-  });
 
-  return {
-    connection: connection,
-    videoElements: videoElements
-  };
-}
-
-
-/* media setup */
-
-localMedia = rtc.media();
-
-// render the local stream
-localMedia.on('capture', function() {
-  localMedia.render('.zone.local');
-});
-
-/* peer connection setup */
-
-scope.on('request', function() {
-  debug(arguments);
-});
-
-// when another peer is discovered, try and communicate with it
-scope.on('announce', function(data) {
-  if (! peers[data.id]) {
-    peers[data.id] = createPeer(data);
-
-    // tell our new friend about ourself
-    console.log("peer discovered - sending announce");
-    scope.to(data.id).announce();
-  }
-});
-
-scope.on('leave', function(peerId) {
-  if (peers[peerId]) {
-    debug('I lost a good friend today');
-
-    // remove the video elements
-    peers[peerId].videoElements.splice(0).forEach(function(el) {
-      if (el.parentNode) {
-        el.parentNode.removeChild(el);
-      }
+    // when we can a remote stream, then add to our remote media
+    connection.addEventListener('addstream', function(evt) {
+      console.log('remote stream added');
+      media(evt.stream).render(qsa('.zone.remote')[0]);
     });
 
-    peers[peerId].connection.close();
+    console.log('got a new friend: ' + id, connection);
+  })
+  .on('dc:open', function(dc, id) {
+    dc.addEventListener('message', function(evt) {
+      messages.appendChild(crel('li', evt.data));
+    });
 
-    // reset the data connection
-    if (dataChannel) {
-      dataChannel.close();
-      dataChannel = null;
+    // save the channel reference
+    channel = dc;
+    console.log('dc open for peer: ' + id);
+  });
+
+// handle chat messages being added
+chat.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === 13) {
+    messages.appendChild(crel('li', { class: 'local' }, chat.value));
+    chat.select();
+    if (channel) {
+      channel.send(chat.value);
     }
-
-    // reset the peer reference
-    peers[peerId] = null;
-
   }
 });
 
-// say hello
-scope.announce();
-
-window.addEventListener('load', function() {
-    messageList = document.getElementById('messageList');
-    commandInput = document.getElementById('commandInput');
-    commandInput.addEventListener('keydown', handleCommand);
-});
-
-/* internals */
-
-function appendMsg(msg, cls) {
-  var msgEl = document.createElement('li');
-  msgEl.className = cls;
-  msgEl.innerHTML = msg;
-  messageList.appendChild(msgEl);
-}
-
-function handleCommand(evt) {
-    if (evt && evt.keyCode === 13) {
-        dataChannel.send(commandInput.value);
-        appendMsg(commandInput.value, 'local');
-        commandInput.select();
-    }
-}
+// render our local media to the target element
+localMedia.render(qsa('.zone.local')[0]);

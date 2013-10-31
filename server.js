@@ -11,7 +11,7 @@
   First, clone this repository:
 
   ```
-  git clone git://github.it.nicta.com.au/Telepresence/rtc-helloworld.git
+  git clone https://github.com/rtc-io/rtc-helloworld.git
   ```
 
   Next, install node dependencies:
@@ -45,9 +45,10 @@ var stylus = require('stylus');
 var nib = require('nib');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io').listen(server);
-var signaller = require('rtc-signaller-socket.io')(io);
 var browserify = require('browserify-middleware');
+
+// create the switchboard
+var switchboard = require('rtc-switchboard')(server);
 
 // convert stylus stylesheets
 app.use(stylus.middleware({
@@ -60,12 +61,13 @@ app.use(stylus.middleware({
   }
 }));
 
-// simple socket reflector implementation
-io.sockets.on('connection', signaller);
 
 // serve the rest statically
 app.use(browserify('./site'));
 app.use(express.static(__dirname + '/site'));
+
+// we need to expose the primus library
+app.get('/rtc.io/primus.js', switchboard.library());
 
 // start the server
 server.listen(3000, function(err) {

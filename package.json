@@ -2,26 +2,22 @@
   "name": "rtc-helloworld",
   "description": "A super simple example for working with WebRTC",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
-  "tags": [
-    "webrtc"
-  ],
-  "engines": {
-    "node": ">= 0.10.x"
-  },
   "private": true,
   "version": "0.1.2",
   "dependencies": {
-    "express": "~3.2.6",
-    "stylus": "~0.32.1",
-    "nib": "~0.9.2",
-    "rtc": "~0.4.0",
-    "socket.io": "~0.9.16",
-    "rtc-signaller-socket.io": "~0.1.0",
-    "browserify-middleware": "~1.17.2"
+    "express": "~3.4.4",
+    "stylus": "~0.39.1",
+    "nib": "~1.0.1",
+    "browserify-middleware": "~1.19.0",
+    "rtc-switchboard": "~0.3.0",
+    "dd": "~0.4.0",
+    "rtc-quickconnect": "~0.2.0",
+    "crel": "~1.1.0",
+    "rtc-media": "~1.1.2"
   },
   "devDependencies": {},
   "scripts": {
-    "new-chrome": "chromium-browser --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
+    "new-chrome": "google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
     "start": "DEBUG=rtc* node server.js",
     "gendocs": "gendocs > README.md"
   },
