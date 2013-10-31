@@ -39,16 +39,6 @@
   All being well you should be able to communicate with that person using
   WebRTC!
 
-  ## The Code
-
-  ### Server
-
-  <<< server.js
-
-  ### Client
-
-  <<< site/index.js
-
 **/
 
 var express = require('express');
