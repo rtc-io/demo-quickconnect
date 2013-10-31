@@ -14,8 +14,8 @@ var localMedia = media();
 require('cog/logger').enable('*');
 
 // initialise a connection
-quickconnect({ ns: 'helloworld', data: false, dtls: true })
-  .on('peer', function(connection, id) {
+quickconnect({ ns: 'helloworld', data: true, dtls: true })
+  .on('peer', function(connection, id, data, monitor) {
     // add the local media to the peer
     if (localMedia.stream) {
       connection.addStream(localMedia.stream);
