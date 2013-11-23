@@ -1,4 +1,4 @@
-var quickconnect = require('rtc-quickconnect');
+var qc = require('rtc-quickconnect');
 var media = require('rtc-media');
 var crel = require('crel');
 var qsa = require('dd/qsa');
@@ -14,7 +14,7 @@ var localMedia = media();
 require('cog/logger').enable('*');
 
 // initialise a connection
-quickconnect({ ns: 'helloworld', data: true, dtls: true })
+qc({ signaller: 'http://sig.rtc.io:50000', ns: 'helloworld', data: true })
   .on('peer', function(connection, id, data, monitor) {
     // add the local media to the peer
     if (localMedia.stream) {
