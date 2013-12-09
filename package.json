@@ -8,13 +8,13 @@
     "express": "~3.4.4",
     "stylus": "~0.40.3",
     "nib": "~1.0.1",
-    "browserify-middleware": "~1.20.0",
-    "rtc-switchboard": "~0.4.0",
-    "dd": "~0.6.0",
-    "rtc-quickconnect": "~0.4.0",
+    "browserify-middleware": "~1.21.0",
+    "rtc-switchboard": "~0.4.1",
+    "rtc-quickconnect": "~0.7.1",
     "crel": "~1.1.0",
-    "rtc-media": "~1.4.1",
-    "cog": "~0.3.1"
+    "rtc-media": "~1.5.0",
+    "cog": "~0.3.1",
+    "fdom": "~0.6.3"
   },
   "devDependencies": {},
   "scripts": {

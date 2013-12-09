@@ -1,7 +1,7 @@
 var qc = require('rtc-quickconnect');
 var media = require('rtc-media');
 var crel = require('crel');
-var qsa = require('dd/qsa');
+var qsa = require('fdom/qsa');
 var channel;
 
 // get the message list DOM element
