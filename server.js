@@ -2,7 +2,7 @@
 'use strict';
 
 /**
-  # rtc-helloworld
+  # rtcio-demo-quickconnect
 
   This is a starter project for working with [WebRTC](http://webrtc.org).
 
@@ -11,13 +11,13 @@
   First, clone this repository:
 
   ```
-  git clone https://github.com/rtc-io/rtc-helloworld.git
+  git clone https://github.com/rtc-io/rtcio-demo-quickconnect.git
   ```
 
   Next, install node dependencies:
 
   ```
-  cd rtc-helloworld
+  cd rtcio-demo-quickconnect
   npm install
   ```
 

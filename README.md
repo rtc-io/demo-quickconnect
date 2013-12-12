@@ -1,19 +1,19 @@
-# rtc-helloworld
+# rtcio-demo-quickconnect
 
-This is a starter project for working with [WebRTC](http://webrtc.org).
+This is a starter project for working with [WebRTC](http://webrtc.org) via the rtc.io suite using [rtc-quickconnect](https://github.com/rtc-io/rtc-quickconnect.git).
 
 ## Getting Started
 
 First, clone this repository:
 
 ```
-git clone https://github.com/rtc-io/rtc-helloworld.git
+git clone https://github.com/rtc-io/rtcio-demo-quickconnect.git
 ```
 
 Next, install node dependencies:
 
 ```
-cd rtc-helloworld
+cd rtcio-demo-quickconnect
 npm install
 ```
 
