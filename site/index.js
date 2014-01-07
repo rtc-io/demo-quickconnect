@@ -16,8 +16,15 @@ var channel;
 var peers = {};
 var peerVideos = {};
 
+// initialise the quickconnect opts
+var qcOpts = {
+  data: true,
+  ns: 'conftest',
+  signalhost: 'http://rtc.io/switchboard/'
+};
+
 // debugging
-require('cog/logger').enable('*');
+// require('cog/logger').enable('rtc-quickconnect');
 
 // capture local media
 var localMedia = media();
@@ -72,7 +79,7 @@ function handleLeave(id) {
 localMedia.render(local);
 
 // handle the connection stuff
-quickconnect({ data: true, ns: 'conftest', signalhost: 'http://sig.rtc.io:50000/' })
+quickconnect(qcOpts)
   .on('peer', handleConnect)
   .on('leave', handleLeave)
   .on('dc:open', function(dc, id) {
