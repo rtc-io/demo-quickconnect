@@ -13,15 +13,7 @@ var chat = qsa('#commandInput')[0];
 
 // data channel & peers
 var channel;
-var peers = {};
-var peerVideos = {};
-
-// initialise the quickconnect opts
-var qcOpts = {
-  data: true,
-  ns: 'conftest',
-  signalhost: 'http://rtc.io/switchboard/'
-};
+var peerMedia = {};
 
 // debugging
 // require('cog/logger').enable('rtc-quickconnect');
@@ -30,68 +22,50 @@ var qcOpts = {
 var localMedia = media();
 
 // initialise a connection
-function handleConnect(connection, id, data, monitor) {
-  // save the peer
-  peers[id] = connection;
-
-  // add the local media to the peer
-  if (localMedia.stream) {
-    connection.addStream(localMedia.stream);
-  }
-  else {
-    localMedia.once('capture', function(stream) {
-      connection.addStream(stream);
-    });
-  }
-
-  // when we can a remote stream, then add to our remote media
-  connection.addEventListener('addstream', function(evt) {
-    console.log('remote stream added');
-    renderRemote(id)(evt.stream);
-  });
-
-  console.log('got a new friend: ' + id, connection);
+function handleConnect(pc, id, data, monitor) {
+  pc.getRemoteStreams().forEach(renderRemote(id));
+  console.log('got a new friend: ' + id, pc);
 }
 
 // render a remote video
 function renderRemote(id) {
   // create the peer videos list
-  peerVideos[id] = peerVideos[id] || [];
+  peerMedia[id] = peerMedia[id] || [];
 
   return function(stream) {
-    peerVideos[id] = peerVideos[id].concat(media(stream).render(remote));
+    peerMedia[id] = peerMedia[id].concat(media(stream).render(remote));
   }
 }
 
 function handleLeave(id) {
     // remove old streams
-  (peerVideos[id] || []).forEach(function(el) {
+  (peerMedia[id] || []).forEach(function(el) {
     el.parentNode.removeChild(el);
   });
-  peerVideos[id] = undefined;
-
-  // close the peer connection
-  peers[id].close();
-  peers[id] = undefined;
+  peerMedia[id] = undefined;
 }
 
 // render our local media to the target element
 localMedia.render(local);
 
-// handle the connection stuff
-quickconnect(qcOpts)
-  .on('peer', handleConnect)
-  .on('leave', handleLeave)
-  .on('dc:open', function(dc, id) {
-    dc.addEventListener('message', function(evt) {
-      messages.appendChild(crel('li', evt.data));
+// once the local media is captured broadcast the media
+localMedia.once('capture', function(stream) {
+  // handle the connection stuff
+  quickconnect('http://rtc.io/switchboard/', { ns: 'conftest' })
+    .broadcast(stream)
+    .createDataChannel('chat')
+    .on('peer:connect', handleConnect)
+    .on('peer:leave', handleLeave)
+    .on('chat:open', function(dc, id) {
+      dc.onmessage = function(evt) {
+        messages.appendChild(crel('li', evt.data));
+      };
+
+      // save the channel reference
+      channel = dc;
+      console.log('dc open for peer: ' + id);
     });
-
-    // save the channel reference
-    channel = dc;
-    console.log('dc open for peer: ' + id);
-  });
-
+});
 
 // handle chat messages being added
 chat.addEventListener('keydown', function(evt) {
