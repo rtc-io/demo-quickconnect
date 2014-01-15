@@ -4,7 +4,7 @@ var crel = require('crel');
 var qsa = require('fdom/qsa');
 
 // local & remote video areas
-var local = qsa('.zone.local')[0];
+var local = qsa('.local')[0];
 var remote = qsa('.zone.remote')[0];
 
 // get the message list DOM element
@@ -33,6 +33,11 @@ function renderRemote(id) {
   peerMedia[id] = peerMedia[id] || [];
 
   return function(stream) {
+    console.log("number of streams:");
+    console.log(Object.keys(peerMedia).length);
+    if (Object.keys(peerMedia).length > 2) {
+      remote = qsa('.zone.remote')[1];
+    }
     peerMedia[id] = peerMedia[id].concat(media(stream).render(remote));
   }
 }

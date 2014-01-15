@@ -5,18 +5,14 @@
 </head>
 <body>
 <div class="layout">
-<h2>Demo of rtc-quickconnect</h2>
-<p>Load this page in two browsers and allow camera access.</p>
-<p>You get a video connection and a chat window.</p>
-<div class="container">
-<div class="zone remote"></div>
-<div class="chat">
-	<ul id="messageList"></ul>
-	<div class="zone local"></div>
+	<div class="container">
+		<div class="zone remote"></div>
+		<div class="zone remote"></div>
+		<div class="local"></div>
+	</div>
 </div>
-</div>
-<input type="text" id="commandInput">
-</div>
+
+
 <script src="/rtc.io/primus.js"></script>
 <script src="index.js"></script>
 </body>
