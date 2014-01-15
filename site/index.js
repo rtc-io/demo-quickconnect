@@ -34,7 +34,7 @@ var iceServers = [
 // console.log(room);
 
 // debugging
-// require('cog/logger').enable('rtc-quickconnect');
+require('cog/logger').enable('*');
 
 // capture local media
 var localMedia = media({
