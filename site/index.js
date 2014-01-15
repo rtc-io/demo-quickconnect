@@ -2,6 +2,8 @@ var quickconnect = require('rtc-quickconnect');
 var media = require('rtc-media');
 var crel = require('crel');
 var qsa = require('fdom/qsa');
+var reRoomName = /^\/room\/(.*?)\/?$/;
+var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 
 // local & remote video areas
 var local = qsa('.local')[0];
@@ -14,6 +16,8 @@ var chat = qsa('#commandInput')[0];
 // data channel & peers
 var channel;
 var peerMedia = {};
+
+// console.log(room);
 
 // debugging
 // require('cog/logger').enable('rtc-quickconnect');
@@ -56,14 +60,16 @@ localMedia.render(local);
 // once the local media is captured broadcast the media
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
-  quickconnect('http://rtc.io/switchboard/', { ns: 'conftest' })
+  quickconnect(location.href + '../../', { room: room })
     .broadcast(stream)
     .createDataChannel('chat')
     .on('peer:connect', handleConnect)
     .on('peer:leave', handleLeave)
     .on('chat:open', function(dc, id) {
       dc.onmessage = function(evt) {
-        messages.appendChild(crel('li', evt.data));
+        if (messages) {
+          messages.appendChild(crel('li', evt.data));
+        }
       };
 
       // save the channel reference
@@ -73,13 +79,14 @@ localMedia.once('capture', function(stream) {
 });
 
 // handle chat messages being added
-chat.addEventListener('keydown', function(evt) {
-  if (evt.keyCode === 13) {
-    messages.appendChild(crel('li', { class: 'local' }, chat.value));
-    chat.select();
-    if (channel) {
-      channel.send(chat.value);
+if (chat) {
+  chat.addEventListener('keydown', function(evt) {
+    if (evt.keyCode === 13) {
+      messages.appendChild(crel('li', { class: 'local' }, chat.value));
+      chat.select();
+      if (channel) {
+        channel.send(chat.value);
+      }
     }
-  }
-});
-
+  });
+}

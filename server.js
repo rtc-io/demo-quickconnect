@@ -41,12 +41,15 @@
 
 **/
 
+var fs = require('fs');
+var path = require('path');
 var express = require('express');
 var stylus = require('stylus');
 var nib = require('nib');
 var app = express();
 var server = require('http').Server(app);
 var browserify = require('browserify-middleware');
+var serverPort = process.env.NODE_PORT || 3000;
 
 // create the switchboard
 var switchboard = require('rtc-switchboard')(server);
@@ -63,18 +66,26 @@ app.use(stylus.middleware({
 }));
 
 
+app.get('/', function(req, res) {
+  res.redirect(req.uri.pathname + 'room/main/');
+});
+
 // serve the rest statically
 app.use(browserify('./site'));
 app.use(express.static(__dirname + '/site'));
 
 // we need to expose the primus library
 app.get('/rtc.io/primus.js', switchboard.library());
+app.get('/room/:roomname', function(req, res, next) {
+  res.writeHead(200);
+  fs.createReadStream(path.resolve(__dirname, 'site', 'index.html')).pipe(res);
+});
 
 // start the server
-server.listen(3000, function(err) {
+server.listen(serverPort, function(err) {
   if (err) {
     return console.log('Encountered error starting server: ', err);
   }
 
-  console.log('server running on port 3000');
+  console.log('server running on port: ' + serverPort);
 });
