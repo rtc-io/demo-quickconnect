@@ -67,7 +67,7 @@ app.use(stylus.middleware({
 
 
 app.get('/', function(req, res) {
-  res.redirect('/room/main/');
+  res.redirect(req.uri.pathname + 'room/main/');
 });
 
 // serve the rest statically
