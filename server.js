@@ -66,6 +66,10 @@ app.use(stylus.middleware({
 }));
 
 
+app.get('/', function(req, res) {
+  res.redirect('/room/main/');
+});
+
 // serve the rest statically
 app.use(browserify('./site'));
 app.use(express.static(__dirname + '/site'));
