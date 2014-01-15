@@ -1,4 +1,5 @@
 var quickconnect = require('rtc-quickconnect');
+var captureConfig = require('rtc-captureconfig');
 var media = require('rtc-media');
 var crel = require('crel');
 var qsa = require('fdom/qsa');
@@ -23,7 +24,9 @@ var peerMedia = {};
 // require('cog/logger').enable('rtc-quickconnect');
 
 // capture local media
-var localMedia = media();
+var localMedia = media({
+  constraints: captureConfig('camera min:1280x720').toConstraints()
+});
 
 // initialise a connection
 function handleConnect(pc, id, data, monitor) {

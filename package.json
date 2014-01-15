@@ -14,7 +14,8 @@
     "crel": "~1.1.0",
     "rtc-media": "~1.5.0",
     "cog": "~0.4.1",
-    "fdom": "~0.6.3"
+    "fdom": "~0.6.3",
+    "rtc-captureconfig": "~0.4.0"
   },
   "devDependencies": {},
   "scripts": {
