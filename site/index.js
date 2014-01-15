@@ -18,6 +18,19 @@ var chat = qsa('#commandInput')[0];
 var channel;
 var peerMedia = {};
 
+// use google's ice servers
+var iceServers = [
+  { url: 'stun:stun.l.google.com:19302' },
+  { url: 'turn:192.158.29.39:3478?transport=udp',
+    credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+   username: '28224511:1379330808'
+  },
+  { url: 'turn:192.158.29.39:3478?transport=tcp',
+    credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+    username: '28224511:1379330808'
+  }
+];
+
 // console.log(room);
 
 // debugging
@@ -63,22 +76,25 @@ localMedia.render(local);
 // once the local media is captured broadcast the media
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
-  quickconnect(location.href + '../../', { room: room })
-    .broadcast(stream)
-    .createDataChannel('chat')
-    .on('peer:connect', handleConnect)
-    .on('peer:leave', handleLeave)
-    .on('chat:open', function(dc, id) {
-      dc.onmessage = function(evt) {
-        if (messages) {
-          messages.appendChild(crel('li', evt.data));
-        }
-      };
+  quickconnect(location.href + '../../', {
+    room: room,
+    iceServers: iceServers
+  })
+  .broadcast(stream)
+  .createDataChannel('chat')
+  .on('peer:connect', handleConnect)
+  .on('peer:leave', handleLeave)
+  .on('chat:open', function(dc, id) {
+    dc.onmessage = function(evt) {
+      if (messages) {
+        messages.appendChild(crel('li', evt.data));
+      }
+    };
 
-      // save the channel reference
-      channel = dc;
-      console.log('dc open for peer: ' + id);
-    });
+    // save the channel reference
+    channel = dc;
+    console.log('dc open for peer: ' + id);
+  });
 });
 
 // handle chat messages being added
