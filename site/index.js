@@ -55,7 +55,7 @@ localMedia.render(local);
 // once the local media is captured broadcast the media
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
-  quickconnect(location.origin, { room: room })
+  quickconnect(location.href + '../../', { room: room })
     .broadcast(stream)
     .createDataChannel('chat')
     .on('peer:connect', handleConnect)
