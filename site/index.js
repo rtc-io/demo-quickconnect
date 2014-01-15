@@ -2,6 +2,8 @@ var quickconnect = require('rtc-quickconnect');
 var media = require('rtc-media');
 var crel = require('crel');
 var qsa = require('fdom/qsa');
+var reRoomName = /^\/room\/(.*?)\/?$/;
+var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 
 // local & remote video areas
 var local = qsa('.zone.local')[0];
@@ -14,6 +16,8 @@ var chat = qsa('#commandInput')[0];
 // data channel & peers
 var channel;
 var peerMedia = {};
+
+// console.log(room);
 
 // debugging
 // require('cog/logger').enable('rtc-quickconnect');
@@ -51,7 +55,7 @@ localMedia.render(local);
 // once the local media is captured broadcast the media
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
-  quickconnect('http://rtc.io/switchboard/', { ns: 'conftest' })
+  quickconnect(location.origin, { room: room })
     .broadcast(stream)
     .createDataChannel('chat')
     .on('peer:connect', handleConnect)
