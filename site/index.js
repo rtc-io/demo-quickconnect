@@ -52,8 +52,8 @@ localMedia.render(local);
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
   quickconnect('http://rtc.io/switchboard/', { ns: 'conftest' })
-    .broadcast(stream)
     .createDataChannel('chat')
+    .broadcast(stream)
     .on('peer:connect', handleConnect)
     .on('peer:leave', handleLeave)
     .on('chat:open', function(dc, id) {
