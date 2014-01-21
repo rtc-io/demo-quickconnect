@@ -8,7 +8,7 @@ var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 
 // local & remote video areas
 var local = qsa('.local')[0];
-var remote = qsa('.zone.remote')[0];
+var remote = qsa('.remote')[0];
 
 // get the message list DOM element
 var messages = qsa('#messageList')[0];

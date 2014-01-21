@@ -18,26 +18,26 @@ html, body {
 	flex-direction: column;
 }
 
-.zone {
+.remote {
 	display: flex;
-	&.remote {
-		flex-direction: row;
-		justify-content: space-between;
+	flex-direction: row;
+	justify-content: space-between;
 
-		video {
-			flex: 1 1 100%;
-			width: 100%;
-			max-height: 90%;
-		}
+	video {
+		flex: 1 1 100%;
+		width: 100%;
+		max-height: 90%;
 	}
 }
 
 .local {
-	display: block;
+	display: flex;
 	position: absolute;
 	float: left;
 	bottom: 0;
 	height: 15%;
+	width: 100%;
+
 	video {
 		margin: 5px 0;
 		height: 100%;
