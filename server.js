@@ -71,7 +71,7 @@ app.get('/', function(req, res) {
 });
 
 // serve the rest statically
-app.use(browserify('./site'));
+app.use(browserify('./site', { debug: true }));
 app.use(express.static(__dirname + '/site'));
 
 // we need to expose the primus library
