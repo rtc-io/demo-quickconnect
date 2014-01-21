@@ -1,6 +1,6 @@
 # rtcio-demo-quickconnect
 
-This is a starter project for working with [WebRTC](http://webrtc.org) via the rtc.io suite using [rtc-quickconnect](https://github.com/rtc-io/rtc-quickconnect.git).
+This is a starter project for working with [WebRTC](http://webrtc.org).
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ WebRTC!
 
 ### Apache 2.0
 
-Copyright 2013 National ICT Australia Limited (NICTA)
+Copyright 2014 National ICT Australia Limited (NICTA)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
