@@ -78,7 +78,7 @@ localMedia.render(local);
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
   quickconnect(location.href + '../../', {
-    debug: true,
+    // debug: true,
     room: room,
     iceServers: iceServers
   })
