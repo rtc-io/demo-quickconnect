@@ -31,11 +31,6 @@ var iceServers = [
   // }
 ];
 
-// console.log(room);
-
-// debugging
-require('cog/logger').enable('*');
-
 // capture local media
 var localMedia = media({
   constraints: captureConfig('camera min:1280x720').toConstraints()
@@ -53,9 +48,12 @@ function renderRemote(id) {
   peerMedia[id] = peerMedia[id] || [];
 
   return function(stream) {
-    console.log("number of streams:");
-    console.log(Object.keys(peerMedia).length);
-    if (Object.keys(peerMedia).length > 2) {
+    var activeStreams = Object.keys(peerMedia).filter(function(id) {
+      return peerMedia[id];
+    }).length;
+
+    console.log('current active stream count = ' + activeStreams);
+    if (activeStreams > 2) {
       remote = qsa('.zone.remote')[1];
     }
     peerMedia[id] = peerMedia[id].concat(media(stream).render(remote));
@@ -63,8 +61,11 @@ function renderRemote(id) {
 }
 
 function handleLeave(id) {
-    // remove old streams
-  (peerMedia[id] || []).forEach(function(el) {
+  var elements = peerMedia[id] || [];
+
+  // remove old streams
+  console.log('peer ' + id + ' left, removing ' + elements.length + ' elements');
+  elements.forEach(function(el) {
     el.parentNode.removeChild(el);
   });
   peerMedia[id] = undefined;
@@ -77,6 +78,7 @@ localMedia.render(local);
 localMedia.once('capture', function(stream) {
   // handle the connection stuff
   quickconnect(location.href + '../../', {
+    debug: true,
     room: room,
     iceServers: iceServers
   })
