@@ -8,7 +8,7 @@ var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 
 // local & remote video areas
 var local = qsa('.local')[0];
-var remote = qsa('.remote')[0];
+var remotes = qsa('.remote');
 
 // get the message list DOM element
 var messages = qsa('#messageList')[0];
@@ -53,10 +53,7 @@ function renderRemote(id) {
     }).length;
 
     console.log('current active stream count = ' + activeStreams);
-    if (activeStreams > 2) {
-      remote = qsa('.zone.remote')[1];
-    }
-    peerMedia[id] = peerMedia[id].concat(media(stream).render(remote));
+    peerMedia[id] = peerMedia[id].concat(media(stream).render(remotes[activeStreams % 2]));
   }
 }
 
