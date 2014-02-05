@@ -85,7 +85,7 @@ localMedia.once('capture', function(stream) {
   .broadcast(stream)
   .createDataChannel('chat')
   .on('peer:connect', handleConnect)
-  .on('peer:leave', handleLeave)
+  .on('peer:disconnect', handleLeave)
   .on('chat:open', function(dc, id) {
     dc.onmessage = function(evt) {
       if (messages) {
