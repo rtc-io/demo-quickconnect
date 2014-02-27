@@ -12,7 +12,7 @@
     "rtc-switchboard": "~0.7.2",
     "rtc-quickconnect": "~0.12.0",
     "crel": "~1.1.0",
-    "rtc-media": "~1.5.0",
+    "rtc-media": "~1.5.5",
     "cog": "~0.5.1",
     "fdom": "~0.6.3",
     "rtc-captureconfig": "~0.4.0"
