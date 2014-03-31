@@ -77,12 +77,13 @@ localMedia.once('capture', function(stream) {
   quickconnect(location.href + '../../', {
     // debug: true,
     room: room,
-    iceServers: iceServers
+    iceServers: iceServers,
+    disableHeartbeat: true
   })
   .broadcast(stream)
   .createDataChannel('chat')
   .on('peer:connect', handleConnect)
-  .on('peer:disconnect', handleLeave)
+  .on('peer:leave', handleLeave)
   .on('chat:open', function(dc, id) {
     dc.onmessage = function(evt) {
       if (messages) {
