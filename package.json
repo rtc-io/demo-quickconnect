@@ -10,7 +10,7 @@
     "nib": "~1.0.1",
     "browserify-middleware": "^2",
     "rtc-switchboard": "~0.10.1",
-    "rtc-quickconnect": "~0.15.0",
+    "rtc-quickconnect": "~0.15.2",
     "crel": "~1.1.0",
     "rtc-media": "~1.5.5",
     "cog": "~0.5.1",
