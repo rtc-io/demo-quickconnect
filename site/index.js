@@ -36,28 +36,22 @@ var localMedia = media({
   constraints: captureConfig('camera min:1280x720').toConstraints()
 });
 
-// initialise a connection
-function handleConnect(pc, id, data, monitor) {
-  pc.getRemoteStreams().forEach(renderRemote(id));
-  console.log('got a new friend: ' + id, pc);
-}
-
 // render a remote video
-function renderRemote(id) {
+function renderRemote(id, stream) {
+  var activeStreams;
+
   // create the peer videos list
   peerMedia[id] = peerMedia[id] || [];
 
-  return function(stream) {
-    var activeStreams = Object.keys(peerMedia).filter(function(id) {
-      return peerMedia[id];
-    }).length;
+  activeStreams = Object.keys(peerMedia).filter(function(id) {
+    return peerMedia[id];
+  }).length;
 
-    console.log('current active stream count = ' + activeStreams);
-    peerMedia[id] = peerMedia[id].concat(media(stream).render(remotes[activeStreams % 2]));
-  }
+  console.log('current active stream count = ' + activeStreams);
+  peerMedia[id] = peerMedia[id].concat(media(stream).render(remotes[activeStreams % 2]));
 }
 
-function handleLeave(id) {
+function removeRemote(id) {
   var elements = peerMedia[id] || [];
 
   // remove old streams
@@ -82,8 +76,8 @@ localMedia.once('capture', function(stream) {
   })
   .broadcast(stream)
   .createDataChannel('chat')
-  .on('peer:connect', handleConnect)
-  .on('peer:leave', handleLeave)
+  .on('stream:added', renderRemote)
+  .on('stream:removed', removeRemote)
   .on('chat:open', function(dc, id) {
     dc.onmessage = function(evt) {
       if (messages) {
