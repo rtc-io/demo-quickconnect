@@ -70,8 +70,10 @@ app.get('/', function(req, res) {
   res.redirect(req.uri.pathname + 'room/main/');
 });
 
-browserify.settings.production('debug', true);
 browserify.settings.development('debug', true);
+
+// force development mode for browserify given this is a demo
+browserify.settings('mode', 'development');
 
 // serve the rest statically
 app.use(browserify('./site'));
