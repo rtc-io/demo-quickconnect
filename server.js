@@ -70,8 +70,10 @@ app.get('/', function(req, res) {
   res.redirect(req.uri.pathname + 'room/main/');
 });
 
+browserify.settings.development('debug', true);
+
 // serve the rest statically
-app.use(browserify('./site', { debug: true }));
+app.use(browserify('./site'));
 app.use(express.static(__dirname + '/site'));
 
 // we need to expose the primus library
