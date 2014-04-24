@@ -70,6 +70,7 @@ app.get('/', function(req, res) {
   res.redirect(req.uri.pathname + 'room/main/');
 });
 
+browserify.settings.production('debug', true);
 browserify.settings.development('debug', true);
 
 // serve the rest statically
