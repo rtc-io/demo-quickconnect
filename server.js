@@ -92,5 +92,5 @@ server.listen(serverPort, function(err) {
     return console.log('Encountered error starting server: ', err);
   }
 
-  console.log('server running on port: ' + serverPort);
+  console.log('running @ http://localhost:' + serverPort + '/');
 });
