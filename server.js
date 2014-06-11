@@ -49,7 +49,7 @@ var nib = require('nib');
 var app = express();
 var server = require('http').Server(app);
 var browserify = require('browserify-middleware');
-var serverPort = process.env.NODE_PORT || 3000;
+var serverPort = parseInt(process.env.PORT, 10) || 3000;
 
 // create the switchboard
 var switchboard = require('rtc-switchboard')(server);
