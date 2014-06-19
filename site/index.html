@@ -4,13 +4,20 @@
 <link rel="stylesheet" href="../../layout.css" />
 </head>
 <body>
-<div class="layout">
-	<div class="container">
-		<div class="remote"></div>
-		<div class="remote"></div>
+<div class="layout layout-hz">
+	<div class="chat">
+		<h4>Chat</h4>
+		<input type="text" id="commandInput" placeholder="Type something"/>
+		<ul class="message-list" id="messageList"></ul>		
 	</div>
-	<div class="local"></div>
-</div>
+	<div class="layout">	
+		<div class="container">
+			<div class="remote"></div>
+			<div class="remote"></div>
+		</div>
+		<div class="local"></div>		
+	</div>
+</div<
 <script src="../../rtc.io/primus.js"></script>
 <script src="../../index.js"></script>
 </body>

@@ -3,6 +3,7 @@ var captureConfig = require('rtc-captureconfig');
 var media = require('rtc-media');
 var crel = require('crel');
 var qsa = require('fdom/qsa');
+var tweak = require('fdom/classtweak');
 var reRoomName = /^\/room\/(.*?)\/?$/;
 var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 
@@ -78,7 +79,8 @@ localMedia.once('capture', function(stream) {
   .createDataChannel('chat')
   .on('stream:added', renderRemote)
   .on('stream:removed', removeRemote)
-  .on('chat:open', function(dc, id) {
+  .on('channel:opened:chat', function(id, dc) {
+    qsa('.chat').forEach(tweak('+open'));
     dc.onmessage = function(evt) {
       if (messages) {
         messages.appendChild(crel('li', evt.data));
@@ -95,7 +97,7 @@ localMedia.once('capture', function(stream) {
 if (chat) {
   chat.addEventListener('keydown', function(evt) {
     if (evt.keyCode === 13) {
-      messages.appendChild(crel('li', { class: 'local' }, chat.value));
+      messages.appendChild(crel('li', { class: 'local-chat' }, chat.value));
       chat.select();
       if (channel) {
         channel.send(chat.value);
