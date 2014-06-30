@@ -5,17 +5,17 @@
   "private": true,
   "version": "0.4.2",
   "dependencies": {
-    "express": "^4",
-    "stylus": "~0.46",
-    "nib": "^1",
     "browserify-middleware": "^3",
-    "rtc-switchboard": "~0.10.1",
-    "rtc-quickconnect": "rtc-io/rtc-quickconnect",
-    "crel": "~1.1.0",
-    "rtc-media": "^1",
     "cog": "^1.0.0",
+    "crel": "~1.1.0",
+    "express": "^4",
     "fdom": "^0.8.0",
-    "rtc-captureconfig": "~0.4.0"
+    "nib": "^1",
+    "rtc-captureconfig": "^1.0.0",
+    "rtc-media": "^1",
+    "rtc-quickconnect": "^2.0.0",
+    "rtc-switchboard": "~0.10.1",
+    "stylus": "~0.46"
   },
   "devDependencies": {},
   "scripts": {
