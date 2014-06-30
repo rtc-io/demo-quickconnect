@@ -3,7 +3,7 @@
   "description": "A super simple example for working with WebRTC",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "private": true,
-  "version": "0.4.2",
+  "version": "0.4.3",
   "dependencies": {
     "browserify-middleware": "^3",
     "cog": "^1.0.0",
