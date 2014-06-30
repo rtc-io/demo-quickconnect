@@ -3,7 +3,7 @@
   "description": "A super simple example for working with WebRTC",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "private": true,
-  "version": "0.4.1",
+  "version": "0.4.2",
   "dependencies": {
     "express": "^4",
     "stylus": "~0.46",
