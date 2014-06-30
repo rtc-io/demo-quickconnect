@@ -10,10 +10,10 @@
     "nib": "^1",
     "browserify-middleware": "^3",
     "rtc-switchboard": "~0.10.1",
-    "rtc-quickconnect": "^1",
+    "rtc-quickconnect": "rtc-io/rtc-quickconnect",
     "crel": "~1.1.0",
     "rtc-media": "^1",
-    "cog": "~0.5.1",
+    "cog": "^1.0.0",
     "fdom": "^0.8.0",
     "rtc-captureconfig": "~0.4.0"
   },
