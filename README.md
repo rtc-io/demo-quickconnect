@@ -1,6 +1,27 @@
 # rtcio-demo-quickconnect
 
 This is a starter project for working with [WebRTC](http://webrtc.org).
+This demo showcases how to use the following packages to build a
+fully functional WebRTC application:
+
+- [rtc-quickconnect](https://github.com/rtc-io/rtc-quickconnect)
+
+  The `rtc-quickconnect` package provides operations that make it simpler
+  to work with WebRTC peer connections.
+
+- [rtc-media](https://github.com/rtc-io/rtc-media)
+
+  Media capture and rendering.
+
+- [rtc-switchboard](https://github.com/rtc-io/rtc-switchboard)
+
+  A websocket powered signaling server that is used to help setup
+  peer connections between two clients.
+
+
+[![NPM](https://nodei.co/npm/rtcio-demo-quickconnect.png)](https://nodei.co/npm/rtcio-demo-quickconnect/)
+
+
 
 ## Getting Started
 
