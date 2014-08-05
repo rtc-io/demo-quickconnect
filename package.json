@@ -11,7 +11,7 @@
     "express": "^4",
     "fdom": "^0.8.0",
     "nib": "^1",
-    "rtc-captureconfig": "^1.0.0",
+    "rtc-captureconfig": "^2.0.0",
     "rtc-media": "^1",
     "rtc-quickconnect": "^2.0.0",
     "rtc-switchboard": "~0.10.1",
