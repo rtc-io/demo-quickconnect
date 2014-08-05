@@ -72,8 +72,7 @@ localMedia.once('capture', function(stream) {
   quickconnect(location.href + '../../', {
     // debug: true,
     room: room,
-    iceServers: iceServers,
-    disableHeartbeat: true
+    iceServers: iceServers
   })
   .broadcast(stream)
   .createDataChannel('chat')
