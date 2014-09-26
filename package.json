@@ -7,15 +7,15 @@
   "dependencies": {
     "browserify-middleware": "^3",
     "cog": "^1.0.0",
-    "crel": "~1.1.0",
+    "crel": "^2.1.5",
     "express": "^4",
     "fdom": "^0.8.0",
     "nib": "^1",
     "rtc-captureconfig": "^2.0.0",
     "rtc-media": "^1",
-    "rtc-quickconnect": "^2.0.0",
+    "rtc-quickconnect": "^3.0.0",
     "rtc-switchboard": "~0.10.1",
-    "stylus": "~0.46"
+    "stylus": "^0.49.1"
   },
   "devDependencies": {},
   "scripts": {
