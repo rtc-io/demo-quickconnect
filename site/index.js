@@ -37,6 +37,18 @@ var localMedia = media({
   constraints: captureConfig('camera min:1280x720').toConstraints()
 });
 
+function clone(stream) {
+  var tracks = stream.getVideoTracks().map(function(track) {
+    return track.clone();
+  });
+
+  tracks = tracks.concat(stream.getAudioTracks().map(function(track) {
+    return track.clone();
+  }));
+
+  return new MediaStream(tracks);
+}
+
 // render a remote video
 function renderRemote(id, stream) {
   var activeStreams;
@@ -68,13 +80,15 @@ localMedia.render(local);
 
 // once the local media is captured broadcast the media
 localMedia.once('capture', function(stream) {
+  var clonedStream = clone(stream);
+
   // handle the connection stuff
   quickconnect(location.href + '../../', {
     // debug: true,
     room: room,
     iceServers: iceServers
   })
-  .broadcast(stream)
+  .addStream(clonedStream)
   .createDataChannel('chat')
   .on('stream:added', renderRemote)
   .on('stream:removed', removeRemote)
@@ -90,6 +104,14 @@ localMedia.once('capture', function(stream) {
     channel = dc;
     console.log('dc open for peer: ' + id);
   });
+
+  setInterval(function() {
+    clonedStream.getAudioTracks()[0].enabled = !clonedStream.getAudioTracks()[0].enabled;
+  }, 5000);
+
+  setInterval(function() {
+    clonedStream.getVideoTracks()[0].enabled = !clonedStream.getVideoTracks()[0].enabled;
+  }, 2500);
 });
 
 // handle chat messages being added
