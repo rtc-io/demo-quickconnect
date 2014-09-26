@@ -74,7 +74,7 @@ localMedia.once('capture', function(stream) {
     room: room,
     iceServers: iceServers
   })
-  .broadcast(stream)
+  .addStream(stream)
   .createDataChannel('chat')
   .on('stream:added', renderRemote)
   .on('stream:removed', removeRemote)
