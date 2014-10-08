@@ -1,5 +1,5 @@
 {
-  "name": "rtcio-demo-quickconnect",
+  "name": "demo-quickconnect",
   "description": "A super simple example for working with WebRTC",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "private": true,
@@ -26,14 +26,15 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtc-io/rtcio-demo-quickconnect.git"
+    "url": "https://github.com/rtc-io/demo-quickconnect.git"
   },
   "keywords": [
     "webrtc",
     "rtc.io"
   ],
-  "license": "Apache 2.0",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rtc-io/rtcio-demo-quickconnect/issues"
-  }
+    "url": "https://github.com/rtc-io/demo-quickconnect/issues"
+  },
+  "homepage": "https://github.com/rtc-io/demo-quickconnect"
 }
