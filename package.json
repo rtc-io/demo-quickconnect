@@ -4,9 +4,15 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "private": true,
   "version": "1.0.0",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "fdom": "^1.0.0",
+    "freeice": "^2.1.0",
+    "kgo": "^1.2.0",
+    "rtc-attach": "^1.1.0",
+    "rtc-capture": "^1.0.1",
+    "rtc-quickconnect": "^2.7.0"
   },
-  "devDependencies": {},
   "scripts": {
     "new-chrome": "google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
     "start": "DEBUG=rtc* node server.js",
