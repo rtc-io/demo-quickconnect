@@ -15,7 +15,8 @@
   },
   "scripts": {
     "new-chrome": "google-chrome --user-data-dir=$HOME/.config/chrome-test --use-fake-device-for-media-stream http://localhost:3000 &",
-    "start": "beefy index.js:bundle.js",
+    "start": "rm -rf bundle.js && beefy index.js:bundle.js",
+    "build": "browserify index.js > bundle.js",
     "gendocs": "gendocs > README.md"
   },
   "main": "server.js",
