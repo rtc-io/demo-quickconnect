@@ -8,8 +8,8 @@
     "classtweak": "^0.1.1",
     "fdom": "^1.0.0",
     "freeice": "^2.1.0",
-    "kgo": "^1.2.0",
-    "rtc-attach": "^1.1.0",
+    "kgo": "^2.0.0",
+    "rtc-attach": "^2.0.1",
     "rtc-capture": "^1.0.1",
     "rtc-quickconnect": "^4.2.1"
   },
