@@ -10,6 +10,10 @@ var config = require('./config.js');
 /**
   # demo-quickconnect
 
+  This is a demonstration of how
+  [`rtc-quickconnect`](https://github.com/rtc-io/rtc-quickconnect) can be used
+  to create a simple video conferencing application.
+
 
 **/
 function createConference() {
