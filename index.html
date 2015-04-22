@@ -1,23 +1,17 @@
 <html>
-<head>
-<title>rtc.io rtc-quickconnect demo</title>
-<link rel="stylesheet" href="layout.css" />
-</head>
-<body>
-<div class="layout layout-hz">
-	<div class="chat">
-		<h4>Chat</h4>
-		<input type="text" id="commandInput" placeholder="Type something"/>
-		<ul class="message-list" id="messageList"></ul>
-	</div>
-	<div class="layout">
-		<div class="container">
-			<div class="remote"></div>
-			<div class="remote"></div>
-		</div>
-		<div class="local"></div>
-	</div>
-</div>
-<script src="bundle.js"></script>
-</body>
+  <head>
+    <title>rtc.io rtc-quickconnect demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout.css" />
+  </head>
+  <body>
+  <div class="localvideo" id="l-video"></div>
+    <div class="r-Grid">
+      <div class="r-Grid-cell r-all--3of4 r-maxL--2of3 r-maxM--1of1">
+        <div id="r-video" class="container"></div>
+        <div id="l-video" class="container"></div>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+  </body>
 </html>
