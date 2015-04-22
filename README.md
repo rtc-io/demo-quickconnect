@@ -4,9 +4,6 @@ This is a demonstration of how
 [`rtc-quickconnect`](https://github.com/rtc-io/rtc-quickconnect) can be used
 to create a simple video conferencing application.
 
-[![NPM](https://nodei.co/npm/demo-quickconnect.png)](https://nodei.co/npm/demo-quickconnect/)
-
-[![bitHound Score](https://www.bithound.io/github/rtc-io/demo-quickconnect/badges/score.svg)](https://www.bithound.io/github/rtc-io/demo-quickconnect) 
 
 
 ## License(s)
