@@ -182,35 +182,6 @@ body {
 .r-all--visible {
   display: inline-block;
 }
-.localvideo {
-  position: absolute;
-  width: 20%;
-}
-
-/* TODO: add a default width style if no other is specified */
-
-.localvideo > video {
-  width: 100%;
-  -webkit-transform: scale(-1, 1);
-      -ms-transform: scale(-1, 1);
-          transform: scale(-1, 1);
-}
-
-.localvideo.pin--r {
-  right: 0;
-}
-
-.localvideo.pin--l {
-  left: 0;
-}
-
-.localvideo.pin--t {
-  top: 0;
-}
-
-.localvideo.pin--b {
-  bottom: 0;
-}
 
 .localvideo {
 }
