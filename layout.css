@@ -56,12 +56,24 @@ body {
   width: 8.33333%;
 }
 
+.r-all--1of11 {
+  width: 9.09091%;
+}
+
 .r-all--1of10 {
   width: 10%;
 }
 
+.r-all--1of9 {
+  width: 11.11111%;
+}
+
 .r-all--1of8 {
   width: 12.5%;
+}
+
+.r-all--1of7 {
+  width: 14.28571%;
 }
 
 .r-all--1of6,
@@ -69,9 +81,17 @@ body {
   width: 16.66667%;
 }
 
+.r-all--2of11 {
+  width: 18.18182%;
+}
+
 .r-all--1of5,
 .r-all--2of10 {
   width: 20%;
+}
+
+.r-all--2of9 {
+  width: 22.22222%;
 }
 
 .r-all--1of4,
@@ -80,14 +100,27 @@ body {
   width: 25%;
 }
 
+.r-all--3of11 {
+  width: 27.27273%;
+}
+
+.r-all--2of7 {
+  width: 28.57143%;
+}
+
 .r-all--3of10 {
   width: 30%;
 }
 
 .r-all--1of3,
 .r-all--2of6,
+.r-all--3of9,
 .r-all--4of12 {
   width: 33.33333%;
+}
+
+.r-all--4of11 {
+  width: 36.36364;
 }
 
 .r-all--3of8 {
@@ -103,6 +136,18 @@ body {
   width: 41.66667%;
 }
 
+.r-all--3of7 {
+  width: 42.85714%;
+}
+
+.r-all--4of9 {
+  width: 44.44444%;
+}
+
+.r-all--5of11 {
+  width: 45.45455%;
+}
+
 .r-all--1of2,
 .r-all--2of4,
 .r-all--3of6,
@@ -110,6 +155,18 @@ body {
 .r-all--5of10,
 .r-all--6of12 {
   width: 50%;
+}
+
+.r-all--6of11 {
+  width: 54.54545;
+}
+
+.r-all--5of9 {
+  width: calc(1 5 / 9);
+}
+
+.r-all--4of7 {
+  width: 57.14286%
 }
 
 .r-all--7of12 {
@@ -121,12 +178,17 @@ body {
   width: 60%;
 }
 
+.r-all--7of11 {
+  width: 63.63636%;
+}
+
 .r-all--5of8 {
   width: 62.5%;
 }
 
 .r-all--2of3,
 .r-all--4of6,
+.r-all--6of9,
 .r-all--8of12 {
   width: 66.66667%;
 }
@@ -135,10 +197,22 @@ body {
   width: 70%;
 }
 
+.r-all--5of7 {
+  width: 71.42857%;
+}
+
+.r-all--8of11 {
+  width: 72.72727%;
+}
+
 .r-all--3of4,
 .r-all--6of8,
 .r-all--9of12 {
   width: 75%;
+}
+
+.r-all--7of9 {
+  width: 77.77778%;
 }
 
 .r-all--4of5,
@@ -146,17 +220,33 @@ body {
   width: 80%;
 }
 
+.r-all--9of11 {
+  width: 81.81818%;
+}
+
 .r-all--5of6,
 .r-all--10of12 {
   width: 83.33333%;
+}
+
+.r-all--6of7 {
+  width: calc(1 6 / 7);
 }
 
 .r-all--7of8 {
   width: 87.5%;
 }
 
+.r-all--8of9 {
+  width: 88.88889%;
+}
+
 .r-all--9of10 {
   width: 90%;
+}
+
+.r-all--10of11 {
+  width: 90.90909%;
 }
 
 .r-all--11of12 {
@@ -169,8 +259,11 @@ body {
 .r-all--4of4,
 .r-all--5of5,
 .r-all--6of6,
+.r-all--7of7,
 .r-all--8of8,
+.r-all--9of9,
 .r-all--10of10,
+.r-all--11of11,
 .r-all--12of12 {
   width: 100%;
 }
